@@ -85,8 +85,8 @@ INSERT INTO materiau VALUES ();
 */
 INSERT INTO type_meuble VALUES  (1, "Canapé"),
                                 (2, "Fauteuil"),
-                                (3, "Meuble de Gaming"),
-                                (4, "Étagères")
+                                (3, "Commode"),
+                                (4, "Étagère")
 ;
 /*
 INSERT INTO commande VALUES ();
