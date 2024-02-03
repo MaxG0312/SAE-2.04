@@ -31,6 +31,16 @@ def client_article_show():                                 # remplace client_ind
     mycursor.execute(sql)
     type_meuble = mycursor.fetchall()
 
+    sql = '''
+            SELECT
+                utilisateur_id, meuble_id, quantite,
+                date_ajout, meuble.nom_meuble AS nom, meuble.prix_meuble AS prix,
+                meuble.stock
+            FROM ligne_panier
+            INNER JOIN meuble on ligne_panier.meuble_id = meuble.id_meuble;'''
+    mycursor.execute(sql)
+    articles_panier = mycursor.fetchall()
+
     list_param = []
     condition_and = ""
     # utilisation du filtre
@@ -41,7 +51,7 @@ def client_article_show():                                 # remplace client_ind
     # pour le filtre
     #types_article = []
 
-    articles_panier = []
+    #articles_panier = []
 
     if len(articles_panier) >= 1:
         sql = ''' calcul du prix total du panier '''
