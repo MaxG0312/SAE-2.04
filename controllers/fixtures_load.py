@@ -88,10 +88,12 @@ def fct_fixtures_load():
      ); '''
      mycursor.execute(sql)
 
-     #     sql = ''' 
-     #           INSERT INTO etat
-     #      '''
-     #     mycursor.execute(sql)
+     sql = ''' 
+          INSERT INTO etat (libelle)
+          VALUES
+          ('en cours de traitement'),
+          ('expédié'); '''
+     mycursor.execute(sql)
 
      sql = ''' 
      CREATE TABLE materiau(
@@ -167,11 +169,6 @@ def fct_fixtures_load():
                FOREIGN KEY(etat_id) REFERENCES etat(id_etat)
           );  '''
      mycursor.execute(sql)
-
-     # sql = ''' 
-     # INSERT INTO commande 
-     #                '''
-     # mycursor.execute(sql)
 
      sql = ''' 
           CREATE TABLE ligne_panier(
