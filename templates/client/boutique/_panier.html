@@ -28,20 +28,20 @@
                                 <form action="/client/panier/add"  style="display: inline-block;"  method="post">
 {# #}                                   <input type="hidden" name="id_declinaison_article" value="{{ item_panier.id_declinaison_article }}">
                                         <input type="hidden" name="quantite" value="1">
-                                        <input type="hidden" name="id_article" value="{{ item_panier.id_article }}">
+                                        <input type="hidden" name="id_article" value="{{ item_panier.meuble_id }}">
                                     <button class="btn btn-primary" > + </button>
                                 </form>
 {# #}                               {% endif %}
 {# #}                           {% endif %}
                                 <form action="/client/panier/delete"   style="display: inline-block;"  method="post">
 {# #}                               <input type="hidden" name="id_declinaison_article" value="{{ item_panier.id_declinaison_article }}">
-                                    <input type="hidden" name="id_article" value="{{ item_panier.id_article }}">
+                                    <input type="hidden" name="id_article" value="{{ item_panier.meuble_id }}">
                                     <button class="btn btn-primary" > - </button>
                                 </form>
 
                                 <form action="/client/panier/delete/line"  style="display: inline-block;"  method="post">
 {# #}                               <input type="hidden" name="id_declinaison_article" value="{{ item_panier.id_declinaison_article }}">
-                                    <input type="hidden" name="id_article" value="{{ item_panier.id_article }}">
+                                    <input type="hidden" name="id_article" value="{{ item_panier.meuble_id }}">
                                     <button class="btn btn-primary" >Supprimer</button>
                                 </form>
                             </td>
@@ -62,6 +62,5 @@
                     {% if prix_total %}
                     Total à payer : <strong>{{ "{:,.2f} €".format(prix_total) }}</strong>
                     {% endif %}
-
             {% endif %}
             </div>
