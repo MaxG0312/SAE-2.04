@@ -141,45 +141,48 @@ def client_commande_show():
     #selection des commandes ordonnées par état puis par date d'achat descendant
     sql = ''' 
             SELECT 
-                id_commande, date_achat, SUM(quantite) AS nbr_articles, quantite*prix as prix_total,
+                id_commande, date_achat, SUM(quantite) AS nbr_articles, SUM(quantite*prix) as prix_total,
                 etat_id, etat.libelle
             FROM commande
             JOIN ligne_commande ON ligne_commande.commande_id = commande.id_commande
             JOIN etat ON etat.id_etat = commande.etat_id
             WHERE utilisateur_id = %s
-            GROUP BY id_commande, date_achat, etat_id, etat.libelle, quantite, prix
+            GROUP BY id_commande, date_achat, etat_id, etat.libelle
             ORDER BY etat_id, date_achat DESC; '''
     mycursor.execute(sql, id_client)
     commandes = mycursor.fetchall()
 
-    #Sélection des articles commandés par un utilisateur
-    sql = ''' 
-            SELECT 
-                nom_meuble AS nom, quantite, prix, quantite*prix as prix_ligne
-            FROM ligne_commande
-            JOIN meuble ON meuble.id_meuble = ligne_commande.meuble_id
-            JOIN commande ON commande.id_commande = ligne_commande.commande_id
-            WHERE utilisateur_id = %s; '''
-    mycursor.execute(sql, id_client)
-    articles_commande = mycursor.fetchall()
+    # #Sélection des articles commandés par un utilisateur
+    # sql = ''' 
+    #         SELECT 
+    #             nom_meuble AS nom, quantite, prix, quantite*prix as prix_ligne
+    #         FROM ligne_commande
+    #         JOIN meuble ON meuble.id_meuble = ligne_commande.meuble_id
+    #         JOIN commande ON commande.id_commande = ligne_commande.commande_id
+    #         WHERE utilisateur_id = %s; '''
+    # mycursor.execute(sql, id_client)
+    # articles_commande = mycursor.fetchall()
 
-    #Pour les adresses de livraison
-    commande_adresses = None
-
+    articles_commande = []
     id_commande = request.args.get('id_commande', None)
     if id_commande != None:
         print(id_commande)
         #selection du détails d'une commande
         sql_detail_commande = '''
                                 SELECT 
-                                    nom_meuble AS nom, quantite, prix, quantite*prix as prix_ligne
+                                    commande_id, nom_meuble AS nom, quantite, prix, quantite*prix as prix_ligne
                                 FROM ligne_commande
                                 JOIN meuble ON meuble.id_meuble = ligne_commande.meuble_id
                                 WHERE commande_id = %s; '''
         mycursor.execute(sql_detail_commande, id_commande)
+        articles_commande = mycursor.fetchall()
 
         # partie 2 : selection de l'adresse de livraison et de facturation de la commande selectionnée
         sql = ''' selection des adressses '''
+        
+    #Pour les adresses de livraison
+    commande_adresses = None
+        
 
     return render_template('client/commandes/show.html'
                            , commandes=commandes
