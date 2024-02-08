@@ -10,7 +10,7 @@ def get_db():
             host="chezxage.mysql.pythonanywhere-services.com",
             # host="serveurmysql",
             user="chezxage",
-            password="pass",
+            password="BDD_meuble",
             database="chezxage$default",
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
