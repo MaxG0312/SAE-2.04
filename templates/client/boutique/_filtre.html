@@ -10,7 +10,7 @@
         <input type="checkbox" name="filter_types" value="{{ type.id_type_meuble }}"
                {% set id_item = type.id_type_meuble | string %}
                {% if session['filter_types'] %}
-{#                   {%  if idItem in session['filter_types'] %} checked  {% endif %} #}
+{#                   {%  if id_item in session['filter_types'] %} checked  {% endif %} #}
                    {{ ' checked ' if (id_item in session['filter_types']) else '' }}
                {% endif %}
 {#                https://stackoverflow.com/questions/58433775/how-to-access-the-value-of-each-checkbox-in-a-table-with-flask #}
