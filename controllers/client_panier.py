@@ -155,19 +155,91 @@ def client_panier_delete_line():
     return redirect('/client/article/show')
 
 
-@client_panier.route('/client/panier/filtre', methods=['POST'])
+@client_panier.route('/client/panier/filtre', methods=['GET', 'POST'])
 def client_panier_filtre():
+    mycursor = get_db().cursor()
     filter_word = request.form.get('filter_word', None)
     filter_prix_min = request.form.get('filter_prix_min', None)
     filter_prix_max = request.form.get('filter_prix_max', None)
     filter_types = request.form.getlist('filter_types', None)
-    # test des variables puis
-    # mise en session des variables
-    return redirect('/client/article/show')
+    
+    # test des variables puis mise en session des variables
+    sql_type = ''' 
+                SELECT
+                    id_type AS id_type_meuble,
+                    libelle_type as libelle
+                FROM type_meuble'''
+
+    sql = '''
+            SELECT 
+                id_meuble, type_meuble_id, materiau_id,
+                nom_meuble AS nom, stock, largeur, hauteur, 
+                prix_meuble AS prix, fournisseur, marque, image_meuble as image
+            FROM meuble'''
+
+    list_param = []
+
+    if filter_word or filter_word == "":
+        if len(filter_word) > 1 and filter_word.isalpha():
+            session['filter_word'] = filter_word
+            flash(u'Filtrer sur le mot : ' + filter_word, 'alert-success')
+        elif len(filter_word) == 1:
+            flash(u'Le mot que vous recherchez doit contenir plus de lettres.', 'alert-warning')
+        else:
+            session.pop('filter_word', None)
+
+    if filter_prix_min or filter_prix_max:
+        if filter_prix_min.isdecimal() and filter_prix_max.isdecimal() and int(filter_prix_min) < int(filter_prix_max):
+            session['filter_prix_min'] = filter_prix_min
+            session['filter_prix_max'] = filter_prix_max
+            flash(u'Filtrer sur la colonne avec un numérique entre : {} et {}'.format(filter_prix_min, filter_prix_max),
+                  'alert-success')
+        else:
+            flash(u'Les valeurs min et max doivent être des numériques, et min doit être inférieur à max.',
+                  'alert-warning')
+
+    if filter_types:
+        session['filter_types'] = filter_types
+        message = u'Cases à cocher sélectionnées : {}'.format(', '.join(filter_types))
+        flash(message, 'alert-success')
+        return redirect('/client/panier/filtre')
+
+    conditions = []
+
+    if "filter_word" in session:
+        conditions.append("nom_meuble LIKE %s")
+        list_param.append("%" + session["filter_word"] + "%")
+
+    if "filter_prix_min" in session or "filter_prix_max" in session:
+        conditions.append("prix_meuble BETWEEN %s AND %s")
+        list_param.append(session['filter_prix_min'])
+        list_param.append(session['filter_prix_max'])
+
+    if "filter_types" in session:
+        conditions.append("(" + " OR ".join(["type_meuble_id = %s"] * len(session['filter_types'])) + ")")
+        list_param.extend(session['filter_types'])
+        
+
+    if conditions:
+        sql += " WHERE " + " AND ".join(conditions)
+
+    mycursor.execute(sql, tuple(list_param))
+    meubles = mycursor.fetchall()
+
+    mycursor.execute(sql_type)
+    type_meuble = mycursor.fetchall()
+    
+    return render_template('client/boutique/panier_article.html', meubles=meubles, type_meuble=type_meuble)
+
 
 
 @client_panier.route('/client/panier/filtre/suppr', methods=['POST'])
 def client_panier_filtre_suppr():
     # suppression  des variables en session
     print("suppr filtre")
+    session.pop('filter_word', None)
+    session.pop('filter_prix_min', None)
+    session.pop('filter_prix_max', None)
+    session.pop('filter_types', None)
     return redirect('/client/article/show')
+

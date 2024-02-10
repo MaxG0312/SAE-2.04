@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# project_folder = os.path.expanduser('/home/chezxage/mysite/SAE-2_04/')  # adjust as appropriate (avec le dossier où se trouve le fichier .env et app.py)
+# load_dotenv(os.path.join(project_folder, '.env'))
+
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
