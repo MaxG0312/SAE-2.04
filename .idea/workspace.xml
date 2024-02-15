@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca5c7b0d-72e7-482c-9dc1-81e7adadc8b9" name="Changes" comment="affichage des commandes dans le back office ainsi que le détails d'une commande fonctionne" />
+    <list default="true" id="ca5c7b0d-72e7-482c-9dc1-81e7adadc8b9" name="Changes" comment="affichage des commandes dans le back office ainsi que le détails d'une commande fonctionne">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,7 +91,7 @@
       <workItem from="1706796758408" duration="5943000" />
       <workItem from="1706861129224" duration="4072000" />
       <workItem from="1707513170546" duration="624000" />
-      <workItem from="1708004074330" duration="6355000" />
+      <workItem from="1708004074330" duration="7305000" />
     </task>
     <task id="LOCAL-00001" summary="Commit commande&amp;_show">
       <option name="closed" value="true" />
