@@ -58,18 +58,21 @@ def valid_add_article():
     type_article_id = request.form.get('type_article_id', '')
     prix = request.form.get('prix', '')
     description = request.form.get('description', '')
+    stock = request.form.get('stock', '')
     image = request.files.get('image', '')
+    
 
     if image:
-        filename = 'img_upload'+ str(int(2147483647 * random())) + '.png'
+        filename = 'img_upload'+ str(int(2147483647 * random())) + '.jpg'
         image.save(os.path.join('static/images/', filename))
     else:
         print("erreur")
         filename=None
 
-    sql = '''  requête admin_article_2 '''
+    sql = '''  INSERT INTO meuble(nom_meuble,prix_meuble, stock, image_meuble, type_meuble_id, description, materiau_id)
+                VALUES (%s, %s, %s, %s, %s, %s, 1); '''
 
-    tuple_add = (nom, filename, prix, type_article_id, description)
+    tuple_add = (nom, prix, stock, filename, type_article_id, description)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()
@@ -86,27 +89,30 @@ def valid_add_article():
 def delete_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
-    sql = ''' requête admin_article_3 '''
-    mycursor.execute(sql, id_article)
-    nb_declinaison = mycursor.fetchone()
+
+    #Suppresion d'un meuble    
+    # sql = ''' SELECT * FROM declinaison WHERE meuble_id = %s; ''' # A décommenter une fois que la table declinaison aura été créee
+    # mycursor.execute(sql, id_article)
+    # nb_declinaison = mycursor.fetchone()
+    nb_declinaison = {'nb_declinaison' : 0} # A enlever une fois que la table declinaison aura été créee
     if nb_declinaison['nb_declinaison'] > 0:
         message= u'il y a des declinaisons dans cet article : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
-        sql = ''' requête admin_article_4 '''
+        sql = ''' SELECT * FROM meuble WHERE id_meuble = %s;  '''
         mycursor.execute(sql, id_article)
-        article = mycursor.fetchone()
-        print(article)
-        image = article['image']
+        meuble = mycursor.fetchone()
+        print(meuble)
+        image = meuble['image_meuble']
 
-        sql = ''' requête admin_article_5  '''
+        sql = ''' DELETE FROM meuble WHERE id_meuble = %s;  '''
         mycursor.execute(sql, id_article)
         get_db().commit()
         if image != None:
             os.remove('static/images/' + image)
 
-        print("un article supprimé, id :", id_article)
-        message = u'un article supprimé, id : ' + id_article
+        print("un meuble supprimé, id :", id_article)
+        message = u'un meuble supprimé, id : ' + id_article
         flash(message, 'alert-success')
 
     return redirect('/admin/article/show')
@@ -117,16 +123,22 @@ def edit_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
     sql = '''
-    requête admin_article_6    
-    '''
+            SELECT 
+                id_meuble, type_meuble_id, nom_meuble AS nom, description, 
+                stock, prix_meuble AS prix, image_meuble as image
+            FROM meuble
+            WHERE id_meuble = %s; '''
     mycursor.execute(sql, id_article)
-    article = mycursor.fetchone()
-    print(article)
+    meuble = mycursor.fetchone()
+    print(meuble)
+
     sql = '''
-    requête admin_article_7
-    '''
+            SELECT
+                id_type AS id_type_meuble,
+                libelle_type as libelle
+            FROM type_meuble; '''
     mycursor.execute(sql)
-    types_article = mycursor.fetchall()
+    types_meuble = mycursor.fetchall()
 
     # sql = '''
     # requête admin_article_6
@@ -135,8 +147,8 @@ def edit_article():
     # declinaisons_article = mycursor.fetchall()
 
     return render_template('admin/article/edit_article.html'
-                           ,article=article
-                           ,types_article=types_article
+                           ,meuble=meuble
+                           ,types_meuble=types_meuble
                          #  ,declinaisons_article=declinaisons_article
                            )
 
@@ -150,9 +162,11 @@ def valid_edit_article():
     type_article_id = request.form.get('type_article_id', '')
     prix = request.form.get('prix', '')
     description = request.form.get('description')
+    stock = request.form.get('stock', '')
+
+
     sql = '''
-       requête admin_article_8
-       '''
+            SELECT image_meuble AS image FROM meuble WHERE id_meuble = %s;'''
     mycursor.execute(sql, id_article)
     image_nom = mycursor.fetchone()
     image_nom = image_nom['image']
@@ -166,22 +180,21 @@ def valid_edit_article():
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
 
-    sql = '''  requête admin_article_9 '''
-    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, description, id_article))
-
+    sql = '''  
+            UPDATE meuble SET 
+                nom_meuble = %s, image_meuble = %s, prix_meuble = %s, 
+                type_meuble_id = %s, description = %s, stock = %s WHERE id_meuble = %s; '''
+    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, description, stock, id_article))
     get_db().commit()
+
     if image_nom is None:
         image_nom = ''
-    message = u'article modifié , nom:' + nom + '- type_article :' + type_article_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description
+    message = u'meuble modifié , nom:' + nom + '- type_article :' + type_article_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description + 'stock:' + stock
     flash(message, 'alert-success')
     return redirect('/admin/article/show')
 
 
-
-
-
-
-
+#Gestion des avis laisser par un utilisateur sur un produit
 @admin_article.route('/admin/article/avis/<int:id>', methods=['GET'])
 def admin_avis(id):
     mycursor = get_db().cursor()

@@ -63,6 +63,7 @@ CREATE TABLE meuble(
    prix_meuble DECIMAL(15,2),
    fournisseur VARCHAR(128),
    marque VARCHAR(50),
+   description VARCHAR(128),
    image_meuble VARCHAR(128),
    
    PRIMARY KEY(id_meuble),

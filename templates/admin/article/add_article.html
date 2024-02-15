@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h2>ajouter un article</h2>
+    <h2>ajouter un meuble</h2>
     <div class="row mt-5">
         <img class="card-img-top rounded mx-4 d-block"  style="width:200px; height:200px; border: 1px solid black; padding: 5px;" id="img_output" src="{{ url_for('static', filename = 'images/')}}no_photo.jpeg" alt="">
         <div class="w-25">
@@ -24,12 +24,15 @@
                     <select name="type_article_id" required class="form-select">
                         <option value="">Sélectionner un type d'article</option>
                         {% for type in types_article %}
-                             <option value="{{ type.id_type_article }}"> {{ type.libelle }}</option>
+                             <option value="{{ type.id_type_meuble }}"> {{ type.libelle }}</option>
                         {% endfor %}
                     </select>
                 </label>
                 <label for="description">description :
                     <input name="description" type="text" class="form-control" >
+                </label>
+                <label for="stock">Stock :
+                    <input name="stock" type="number" class="form-control" >
                 </label>
                 <label for="submit">
                     <input name="submit" type="submit" value="Ajouter" class="btn btn-primary mt-2">
