@@ -27,7 +27,16 @@ def admin_commande_show():
     id_commande = request.args.get('id_commande', None)
     print(id_commande)
     if id_commande != None:
-        sql = '''    '''
+        sql = '''   SELECT
+                        nom_meuble AS nom, quantite, prix, (prix * quantite) AS prix_ligne
+                    FROM ligne_commande
+                    LEFT JOIN meuble
+                        ON meuble.id_meuble = ligne_commande.meuble_id
+                    WHERE commande_id = %s
+                    ;
+              '''
+        mycursor.execute(sql, id_commande)
+        articles_commande = mycursor.fetchall()
         commande_adresses = []
     return render_template('admin/commandes/show.html'
                            , commandes=commandes
