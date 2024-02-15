@@ -18,12 +18,13 @@ admin_article = Blueprint('admin_article', __name__,
 def show_article():
     mycursor = get_db().cursor()
     sql = '''
-        SELECT id_stylo AS id_article
-               , nom_stylo AS nom
-               , prix_stylo AS prix
-               , stock AS stock
-        FROM stylo
-        ORDER BY nom_stylo;
+        SELECT 
+                id_meuble AS id_article, type_meuble_id, libelle_type AS libelle, materiau_id,
+                nom_meuble AS nom, stock, largeur, hauteur, 
+                prix_meuble AS prix, fournisseur, marque, image_meuble as image
+            FROM meuble
+            INNER JOIN type_meuble ON type_meuble.id_type = meuble.type_meuble_id
+            ORDER BY nom;
         '''
     mycursor.execute(sql)
     articles = mycursor.fetchall()
@@ -108,17 +109,19 @@ def delete_article():
 def edit_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
-    sql = '''
-    requête admin_article_6    
-    '''
-    mycursor.execute(sql, id_article)
+    sql = '''SELECT type_meuble_id AS type_article_id, materiau_id, nom_meuble AS nom_article, stock, largeur, hauteur, prix_meuble AS prix_article, fournisseur,
+    marque, image_meuble
+    FROM meuble
+    WHERE id_meuble = %s; '''   #
+
+    mycursor.execute(sql, id_article) #doit prendre le bon article
     article = mycursor.fetchone()
     print(article)
     sql = '''
-    requête admin_article_7
-    '''
+    SELECT * FROM type_meuble
+    '''    #
     mycursor.execute(sql)
-    types_article = mycursor.fetchall()
+    types_article = mycursor.fetchall() #prend les types d'articles
 
     # sql = '''
     # requête admin_article_6
@@ -142,8 +145,9 @@ def valid_edit_article():
     type_article_id = request.form.get('type_article_id', '')
     prix = request.form.get('prix', '')
     description = request.form.get('description')
+    stock=request.form.get('stock')
     sql = '''
-       requête admin_article_8
+       SELECT image_meuble AS image_article FROM meuble WHERE id_meuble = %s;
        '''
     mycursor.execute(sql, id_article)
     image_nom = mycursor.fetchone()
@@ -158,8 +162,10 @@ def valid_edit_article():
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
 
-    sql = '''  requête admin_article_9 '''
-    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, description, id_article))
+    sql = '''  UPDATE article
+     SET nom,image_nom,prix,type_meuble_id,, description,stock = %s,%s,%s,%s,%s,%s,%s,
+     WHERE id_meuble = %s; '''
+    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, description, stock, id_article))    #modifie l'article
 
     get_db().commit()
     if image_nom is None:
