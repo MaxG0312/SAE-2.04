@@ -10,14 +10,14 @@ articles (tableau de dictionnaires)
 {% extends 'admin/layout_admin.html' %}
 
 {% block title %}
-    <title>afficher les articles</title>
+    <title>afficher les meubles</title>
 {% endblock %}
 
 {% block body %}
-<h3>article</h3>
-<a  class="btn btn-outline-success" href="/admin/article/add">ajouter un article</a>
+<h3>Meubles</h3>
+<a  class="btn btn-outline-success" href="/admin/article/add">ajouter un meuble</a>
 <br><br>
-{#{{ articles }}#}
+{#{{ meubles }}#}
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -26,12 +26,12 @@ articles (tableau de dictionnaires)
         </tr>
     </thead>
     <tbody>
-    {% if articles | length >= 1 %}
-        {% for ligne in articles %}
+    {% if meubles | length >= 1 %}
+        {% for ligne in meubles %}
            <tr>
                   <td>{{ ligne.nom }}</td>
                   <td>{{ ligne.id_article }}</td>
-                  <td><span style="color: red">{{ ligne.libelle }}</span> ({{ ligne.type_article_id }})</td>
+                  <td><span style="color: red">{{ ligne.libelle }}</span> ({{ ligne.type_meuble_id }})</td>
                   <td>{#{ ligne.prix }#}  {{  "{:,.2f} €".format(ligne.prix) }}</td>
                   <td>
                   {% if ligne.stock is defined %}

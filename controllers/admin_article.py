@@ -17,18 +17,18 @@ admin_article = Blueprint('admin_article', __name__,
 @admin_article.route('/admin/article/show')
 def show_article():
     mycursor = get_db().cursor()
-    sql = '''
-        SELECT id_stylo AS id_article
-               , nom_stylo AS nom
-               , prix_stylo AS prix
-               , stock AS stock
-        FROM stylo
-        ORDER BY nom_stylo;
-        '''
+    sql = ''' 
+            SELECT 
+                id_meuble AS id_article, type_meuble_id, libelle_type AS libelle, materiau_id,
+                nom_meuble AS nom, stock, largeur, hauteur, 
+                prix_meuble AS prix, fournisseur, marque, image_meuble as image
+            FROM meuble
+            INNER JOIN type_meuble ON type_meuble.id_type = meuble.type_meuble_id
+            ORDER BY nom; '''
     mycursor.execute(sql)
-    articles = mycursor.fetchall()
-    print(articles)
-    return render_template('admin/article/show_article.html', articles=articles)
+    meubles = mycursor.fetchall()
+    print(meubles)
+    return render_template('admin/article/show_article.html', meubles=meubles)
 
 
 @admin_article.route('/admin/article/add', methods=['GET'])
