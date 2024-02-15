@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# project_folder = os.path.expanduser('/home/chezxage/mysite/SAE-2_04/')  # adjust as appropriate (avec le dossier où se trouve le fichier .env et app.py)
+# project_folder = os.path.expanduser('/home/userdepinfo/Travail/sae_test/SAE-2_04')  # adjust as appropriate (avec le dossier où se trouve le fichier .env et app.py)
 # load_dotenv(os.path.join(project_folder, '.env'))
 
 

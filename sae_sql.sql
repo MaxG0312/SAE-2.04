@@ -139,6 +139,7 @@ VALUES
 ("client2", "client2@client.fr", "client2", "pbkdf2:sha512:600000$AzVEd5kVoRwR6SPF$65db3d109a2f08d53c3fbdc72218cbdb34dce9a302badc04f491b1292c4a0725985ea085d3e360c101579898688a098e2a74076c2015ff38dab3bd8c57e68c01", "ROLE_client", 1);
 
 
-
-
-
+INSERT INTO etat (libelle)
+VALUES
+('en cours de traitement'),
+('expedié');
