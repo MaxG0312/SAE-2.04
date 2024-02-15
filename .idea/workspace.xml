@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca5c7b0d-72e7-482c-9dc1-81e7adadc8b9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="ca5c7b0d-72e7-482c-9dc1-81e7adadc8b9" name="Changes" comment="affichage des commandes dans le back office ainsi que le détails d'une commande fonctionne">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connexion_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/connexion_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/admin_commande.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/admin_commande.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sae_sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sae_sql.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,8 +91,17 @@
       <workItem from="1706796758408" duration="5943000" />
       <workItem from="1706861129224" duration="4072000" />
       <workItem from="1707513170546" duration="624000" />
-      <workItem from="1708004074330" duration="5088000" />
+      <workItem from="1708004074330" duration="6045000" />
     </task>
+    <task id="LOCAL-00001" summary="Commit commande&amp;_show">
+      <option name="closed" value="true" />
+      <created>1708009249713</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708009249713</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +120,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Commit commande&amp;_show" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit commande&amp;_show" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SAE_2_04$SAE_2_04.coverage" NAME="SAE-2_04 Coverage Results" MODIFIED="1708009124857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
