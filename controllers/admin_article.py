@@ -35,8 +35,16 @@ def show_article():
 def add_article():
     mycursor = get_db().cursor()
 
+    sql = '''
+            SELECT
+                id_type AS id_type_meuble,
+                libelle_type as libelle
+            FROM type_meuble; '''
+    mycursor.execute(sql)
+    type_article = mycursor.fetchall()
+
     return render_template('admin/article/add_article.html'
-                           #,types_article=type_article,
+                           ,types_article=type_article,
                            #,couleurs=colors
                            #,tailles=tailles
                             )
