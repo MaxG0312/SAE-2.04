@@ -99,6 +99,10 @@ VALUES
 ("Châtaignier"),
 ("Acier");
 
+INSERT INTO etat (libelle)
+VALUES
+('en cours de traitement'),
+('expédié');
 
 INSERT INTO type_meuble(libelle_type)
 VALUES  
