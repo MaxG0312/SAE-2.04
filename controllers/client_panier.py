@@ -176,13 +176,21 @@ def client_panier_filtre():
                 nom_meuble AS nom, stock, largeur, hauteur, 
                 prix_meuble AS prix, fournisseur, marque, image_meuble as image
             FROM meuble'''
+    
+    sql_panier = '''
+            SELECT
+                utilisateur_id, meuble_id, quantite,
+                date_ajout, meuble.nom_meuble AS nom, meuble.prix_meuble AS prix,
+                meuble.stock
+            FROM ligne_panier
+            INNER JOIN meuble on ligne_panier.meuble_id = meuble.id_meuble; '''
 
     list_param = []
 
     if filter_word or filter_word == "":
         if len(filter_word) > 1 and filter_word.isalpha():
             session['filter_word'] = filter_word
-            flash(u'Filtrer sur le mot : ' + filter_word, 'alert-success')
+
         elif len(filter_word) == 1:
             flash(u'Le mot que vous recherchez doit contenir plus de lettres.', 'alert-warning')
         else:
@@ -192,16 +200,12 @@ def client_panier_filtre():
         if filter_prix_min.isdecimal() and filter_prix_max.isdecimal() and int(filter_prix_min) < int(filter_prix_max):
             session['filter_prix_min'] = filter_prix_min
             session['filter_prix_max'] = filter_prix_max
-            flash(u'Filtrer sur la colonne avec un numérique entre : {} et {}'.format(filter_prix_min, filter_prix_max),
-                  'alert-success')
         else:
             flash(u'Les valeurs min et max doivent être des numériques, et min doit être inférieur à max.',
                   'alert-warning')
 
     if filter_types:
         session['filter_types'] = filter_types
-        message = u'Cases à cocher sélectionnées : {}'.format(', '.join(filter_types))
-        flash(message, 'alert-success')
         return redirect('/client/panier/filtre')
 
     conditions = []
@@ -228,9 +232,16 @@ def client_panier_filtre():
 
     mycursor.execute(sql_type)
     type_meuble = mycursor.fetchall()
-    
-    return render_template('client/boutique/panier_article.html', meubles=meubles, type_meuble=type_meuble)
 
+    mycursor.execute(sql_panier)
+    articles_panier = mycursor.fetchall()
+    
+    return render_template('client/boutique/panier_article.html', 
+                           meubles = meubles, 
+                           type_meuble = type_meuble, 
+                           articles_panier = articles_panier)
+
+    
 
 
 @client_panier.route('/client/panier/filtre/suppr', methods=['POST'])
