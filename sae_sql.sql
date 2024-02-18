@@ -145,5 +145,11 @@ VALUES
 
 
 
-
+SELECT
+   id_type AS id_type_meuble, libelle_type as libelle,
+   COUNT(meuble.id_meuble) AS nbre_meubles
+FROM type_meuble
+LEFT JOIN meuble ON meuble.type_meuble_id = type_meuble.id_type
+WHERE id_type_meuble = 3
+GROUP BY id_type_meuble, libelle;
 

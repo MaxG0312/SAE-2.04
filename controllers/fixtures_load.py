@@ -119,6 +119,7 @@ def fct_fixtures_load():
                type_meuble_id INT NOT NULL,
                materiau_id INT NOT NULL,
                nom_meuble VARCHAR(50),
+               description VARCHAR(128),
                stock INT,
                largeur INT,
                hauteur INT,

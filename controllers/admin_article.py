@@ -108,6 +108,7 @@ def delete_article():
         sql = ''' DELETE FROM meuble WHERE id_meuble = %s;  '''
         mycursor.execute(sql, id_article)
         get_db().commit()
+        
         if image != None:
             os.remove('static/images/' + image)
 

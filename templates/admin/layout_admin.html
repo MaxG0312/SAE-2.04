@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SAE BDD</title>
+    
+    {% block title %}    
+    <title>CHEZXAGE | Menu</title>
+    {% endblock %}
+
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" >
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}" >
