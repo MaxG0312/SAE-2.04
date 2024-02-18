@@ -81,6 +81,8 @@
                                     {{ commande.prix_total }}
                                 </td>
                                 <td> {{ commande.libelle }}</td>
+
+                                {% if commande.etat_id == 1 %}
                                 <td style="text-align: center;">
                                     <form action="/admin/commande/valider" style="display: inline-block;"  method="post">
                                         <input type="hidden" name="id_commande" value="{{ commande.id_commande }}">
@@ -90,6 +92,14 @@
                                         <button class="btn btn-primary" > Details </button>
                                     </a>
                                 </td>
+            
+                                {% else %}
+                                    <td style="text-align: center;">
+                                        <a href="/admin/commande/show?id_commande={{ commande.id_commande }}">
+                                            <button class="btn btn-primary" > Details </button>
+                                        </a>
+                                    </td>
+                                {% endif %}    
                             </tr>
                         {% endfor %}
                         </tbody>

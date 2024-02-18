@@ -27,7 +27,7 @@ def show_article():
             ORDER BY nom; '''
     mycursor.execute(sql)
     meubles = mycursor.fetchall()
-    print(meubles)
+    # print(meubles)
     return render_template('admin/article/show_article.html', meubles=meubles)
 
 
@@ -108,7 +108,7 @@ def delete_article():
         sql = ''' DELETE FROM meuble WHERE id_meuble = %s;  '''
         mycursor.execute(sql, id_article)
         get_db().commit()
-        
+
         if image != None:
             os.remove('static/images/' + image)
 
@@ -131,7 +131,6 @@ def edit_article():
             WHERE id_meuble = %s; '''
     mycursor.execute(sql, id_article)
     meuble = mycursor.fetchone()
-    print(meuble)
 
     sql = '''
             SELECT

@@ -26,17 +26,12 @@ def admin_commande_show():
             commande.date_achat AS date_achat,
             SUM(ligne_commande.quantite) AS nbr_articles,
             SUM(ligne_commande.prix * ligne_commande.quantite) AS prix_total,
-            etat.libelle, etat.id_etat
-        FROM 
-            commande
-        LEFT JOIN 
-            utilisateur ON commande.utilisateur_id = utilisateur.id_utilisateur
-        LEFT JOIN 
-            ligne_commande ON commande.id_commande = ligne_commande.commande_id
-        LEFT JOIN 
-            etat ON commande.etat_id = etat.id_etat
-        GROUP BY 
-            commande.id_commande, utilisateur.nom, date_achat, libelle, id_etat; '''
+            etat.libelle, commande.etat_id
+        FROM commande
+        LEFT JOIN utilisateur ON commande.utilisateur_id = utilisateur.id_utilisateur
+        LEFT JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id
+        LEFT JOIN etat ON commande.etat_id = etat.id_etat
+        GROUP BY commande.id_commande, utilisateur.nom, date_achat, libelle, etat_id; '''
 
     mycursor.execute(sql)
     commandes = mycursor.fetchall()

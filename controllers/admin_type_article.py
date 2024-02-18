@@ -85,7 +85,6 @@ def delete_type_article():
             WHERE type_meuble_id = %s; '''
     mycursor.execute(sql, (id_type_article,))
     meubles = mycursor.fetchall()
-    print(meubles)
 
     if not meubles:
         sql = ''' DELETE FROM type_meuble WHERE id_type = %s; '''
