@@ -164,29 +164,6 @@ def client_panier_filtre():
     filter_types = request.form.getlist('filter_types', None)
     
     # test des variables puis mise en session des variables
-    sql_type = ''' 
-                SELECT
-                    id_type AS id_type_meuble,
-                    libelle_type as libelle
-                FROM type_meuble'''
-
-    sql = '''
-            SELECT 
-                id_meuble, type_meuble_id, materiau_id,
-                nom_meuble AS nom, stock, largeur, hauteur, 
-                prix_meuble AS prix, fournisseur, marque, image_meuble as image
-            FROM meuble'''
-    
-    sql_panier = '''
-            SELECT
-                utilisateur_id, meuble_id, quantite,
-                date_ajout, meuble.nom_meuble AS nom, meuble.prix_meuble AS prix,
-                meuble.stock
-            FROM ligne_panier
-            INNER JOIN meuble on ligne_panier.meuble_id = meuble.id_meuble; '''
-
-    list_param = []
-
     if filter_word or filter_word == "":
         if len(filter_word) > 1 and filter_word.isalpha():
             session['filter_word'] = filter_word
@@ -206,40 +183,84 @@ def client_panier_filtre():
 
     if filter_types:
         session['filter_types'] = filter_types
-        return redirect('/client/panier/filtre')
+    return redirect('/client/article/show')
 
-    conditions = []
+    # sql_type = ''' 
+    #             SELECT
+    #                 id_type AS id_type_meuble,
+    #                 libelle_type as libelle
+    #             FROM type_meuble'''
 
-    if "filter_word" in session:
-        conditions.append("nom_meuble LIKE %s")
-        list_param.append("%" + session["filter_word"] + "%")
+    # sql = '''
+    #         SELECT 
+    #             id_meuble, type_meuble_id, materiau_id,
+    #             nom_meuble AS nom, stock, largeur, hauteur, 
+    #             prix_meuble AS prix, fournisseur, marque, image_meuble as image
+    #         FROM meuble'''
+    
+    # sql_panier = '''
+    #         SELECT
+    #             utilisateur_id, meuble_id, quantite,
+    #             date_ajout, meuble.nom_meuble AS nom, meuble.prix_meuble AS prix,
+    #             meuble.stock
+    #         FROM ligne_panier
+    #         INNER JOIN meuble on ligne_panier.meuble_id = meuble.id_meuble; '''
 
-    if "filter_prix_min" in session or "filter_prix_max" in session:
-        conditions.append("prix_meuble BETWEEN %s AND %s")
-        list_param.append(session['filter_prix_min'])
-        list_param.append(session['filter_prix_max'])
+    # list_param = []
 
-    if "filter_types" in session:
-        conditions.append("(" + " OR ".join(["type_meuble_id = %s"] * len(session['filter_types'])) + ")")
-        list_param.extend(session['filter_types'])
+    # if filter_word or filter_word == "":
+    #     if len(filter_word) > 1 and filter_word.isalpha():
+    #         session['filter_word'] = filter_word
+
+    #     elif len(filter_word) == 1:
+    #         flash(u'Le mot que vous recherchez doit contenir plus de lettres.', 'alert-warning')
+    #     else:
+    #         session.pop('filter_word', None)
+
+    # if filter_prix_min or filter_prix_max:
+    #     if filter_prix_min.isdecimal() and filter_prix_max.isdecimal() and int(filter_prix_min) < int(filter_prix_max):
+    #         session['filter_prix_min'] = filter_prix_min
+    #         session['filter_prix_max'] = filter_prix_max
+    #     else:
+    #         flash(u'Les valeurs min et max doivent être des numériques, et min doit être inférieur à max.',
+    #               'alert-warning')
+
+    # if filter_types:
+    #     session['filter_types'] = filter_types
+    #     return redirect('/client/panier/filtre')
+
+    # conditions = []
+
+    # if "filter_word" in session:
+    #     conditions.append("nom_meuble LIKE %s")
+    #     list_param.append("%" + session["filter_word"] + "%")
+
+    # if "filter_prix_min" in session or "filter_prix_max" in session:
+    #     conditions.append("prix_meuble BETWEEN %s AND %s")
+    #     list_param.append(session['filter_prix_min'])
+    #     list_param.append(session['filter_prix_max'])
+
+    # if "filter_types" in session:
+    #     conditions.append("(" + " OR ".join(["type_meuble_id = %s"] * len(session['filter_types'])) + ")")
+    #     list_param.extend(session['filter_types'])
         
 
-    if conditions:
-        sql += " WHERE " + " AND ".join(conditions)
+    # if conditions:
+    #     sql += " WHERE " + " AND ".join(conditions)
 
-    mycursor.execute(sql, tuple(list_param))
-    meubles = mycursor.fetchall()
+    # mycursor.execute(sql, tuple(list_param))
+    # meubles = mycursor.fetchall()
 
-    mycursor.execute(sql_type)
-    type_meuble = mycursor.fetchall()
+    # mycursor.execute(sql_type)
+    # type_meuble = mycursor.fetchall()
 
-    mycursor.execute(sql_panier)
-    articles_panier = mycursor.fetchall()
+    # mycursor.execute(sql_panier)
+    # articles_panier = mycursor.fetchall()
     
-    return render_template('client/boutique/panier_article.html', 
-                           meubles = meubles, 
-                           type_meuble = type_meuble, 
-                           articles_panier = articles_panier)
+    # return render_template('client/boutique/panier_article.html', 
+    #                        meubles = meubles, 
+    #                        type_meuble = type_meuble, 
+    #                        articles_panier = articles_panier)
 
     
 

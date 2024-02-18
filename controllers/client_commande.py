@@ -93,6 +93,7 @@ def client_commande_add():
         mycursor.execute(sql, tuple_commande)
 
     get_db().commit()
+    flash(u'Commande passer avec succès', 'alert-success')
     return redirect('/client/article/show')
 
 # def client_commande_add():
