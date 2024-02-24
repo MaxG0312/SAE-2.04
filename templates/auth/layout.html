@@ -3,29 +3,55 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SAE BDD</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" >
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.css') }}" >
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/mes_styles.css') }}" >
+    {% endblock %}
+
+    {% block title %}
+        <title>CHEZXAGE | Menu</title>
     {% endblock %}
 </head>
 <body>
 
 {% include('auth/_nav.html') %}
 
-<div class="container">
+<div class="container py-5">
     {% block body %}
-        <h4>templates/auth/layout.html</h4>
-        <h2>Site de vente : projet SAE S2 BDD</h2>
-        <br><br>
-        <a href="/base/init">init.</a>
+        <div class="py-5">
+            <h4 class="container__h4--color">templates/auth/layout.html</h4>
+            <h1 class="text-dark fw-bold pb-5">Site de vente : Projet SAE S2 BDD groupe n°14</h1>
+            <a class="bg-red text-uppercase text-white p-2 rounded-2" href="/base/init">init.</a>
+        </div>
     {% endblock %}
-</div><!-- /.container -->
+</div>
 
 {% block javascripts %}
     <script src="{{ url_for('static', filename='assets/js/bootstrap.bundle.js') }}" ></script>
 {% endblock %}
 
+<footer class="border-top">
+    <div class="container py-5">
+        <div class="row text-center justify-content-center">
+            <div class="col-12 col-md-3">
+                <a href="#">Conditions d'utilisation</a>
+            </div>
+            <div class="col-12 col-md-3">
+                <a href="#">Protection de vos Informations personnelles</a>
+            </div>
+            <div class="col-12 col-md-3">
+                <a href="#">Aide</a>
+            </div>
+            <div class="col-12 col-md-3">
+                <a href="#">Cookies</a>
+            </div>
+            <div class="text-center text-gray pt-5">
+                &copy;2000-2024, Chezxage.com Ent.
+            </div>
+
+        </div>
+    </div>
+</footer>
 </body>
 </html>

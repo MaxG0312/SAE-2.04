@@ -1,9 +1,9 @@
-<div class="m-2">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">SAE BDD 2024<span style="color:blue;">  Menu Client </span></a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    <a href="/"><img class="container-fluid__img" src="{{ url_for('static', filename='images/logo/logo_chezxage.png') }}" alt="logo chezxage"></a>
+    <div class="collapse navbar-collapse mx-5" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto fs-6">
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Commandes</a>
                 <div class="dropdown-menu" aria-labelledby="DropdownCommandes">
@@ -31,17 +31,19 @@
      <div class="d-flex">
             <!-- Authentication Links -->
             {% if session['role']  %}
-                <span class="navbar-text">
+                <span class="navbar-text fs-6 mx-4">
                     Bonjour {{ session['login'] }}
                     {% if session['role']=='ROLE_admin' %} (role : PB Admin)
                     {% elif session['role']=='ROLE_client' %} (role : Client) {% endif %}
                     &nbsp
                 </span>
-               <a class="btn btn-outline-success" type="button" href="/logout"  >
-                    Se déconnecter (Logout)
-                </a>
+               <div class="navbar-text fs-6">
+                    <a class="text-danger" type="button" href="/logout"  >
+                        Se déconnecter <i class="bi bi-box-arrow-right mx-2"></i>
+                    </a>
+               </div>
             {% else %}
-                <a class="btn btn-outline-success mr-1" type="button" href="/login">
+                <a class="btn btn-outline-yellow mr-1" type="button" href="/login">
                     PB espace client
                 </a>
             {% endif %}

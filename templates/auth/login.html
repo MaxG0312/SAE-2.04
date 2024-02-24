@@ -1,69 +1,45 @@
-<!-- templates/login.html -->
-
 {% extends 'auth/layout.html' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}
+<title>Connexion</title>
+{% endblock %}
 
 {% block body %}
-<form method="post" action="/login">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6"> <!-- Utilisez la largeur souhaitée ici -->
+            <form method="post" action="/login">
+                {% with messages = get_flashed_messages() %}
+                <br>
+                {% if messages %}
+                <div class="alert alert-danger">
+                    {{ messages[0] }}
+                </div>
+                {% endif %}
+                {% endwith %}
+                <img class="logo_connexion d-block mx-auto" src="{{ url_for('static', filename='images/logo/chezxage_connexion.png') }}" alt="logo chezxage">
 
-     {% with messages = get_flashed_messages() %}
-         <br>
-        {% if messages %}
-            <div class="alert alert-danger">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-
-    {% endwith %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-    <label for="inputlogin">Pseudo</label>
-    <input type="text" value="" name="login" id="inputlogin" class="form-control" required autofocus placeholder="login" >
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required  placeholder="Votre Password">
-
-    <button class="btn btn-lg btn-primary mt-4" type="submit">
-        Se connecter
-    </button>
-</form>
+                <div class="connexion_forms border p-5 rounded-3 my-5">
+                    <h2 class="h2 mb-4 font-weight-normal">Se connecter</h2>
+                    <div class="form-group pb-4">
+                        <label for="inputlogin">Pseudo</label>
+                        <input type="text" value="" name="login" id="inputlogin" class="form-control" required autofocus placeholder="login" >
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" required  placeholder="Votre Password">
+                    </div>
+                    <button class="btn btn-lg btn-yellow mt-4 w-100 mb-4" type="submit">Continuer </button>
+                    <span class="text-connexion">
+                        En continuant, vous acceptez les <a href="#">conditions d'utilisation et de vente</a> de CHEZXAGE. Pour en savoir plus sur la façon dont 
+                        nous gérons vos données, consultez notre <a href="#">déclaration de confidentialité</a>, notre <a href="#">politique en matière de cookies</a> 
+                        ainsi que notre <a href="#">politique de publicité ciblée.</a>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 
-
-
-
-
-
-
-
-{#{% extends "auth/base_bulma.html" %}#}
-{##}
-{#{% block content %}#}
-{#<div class="column is-4 is-offset-4">#}
-{#    <h3 class="title">Login</h3>#}
-{#    <div class="box">#}
-{#        {% with messages = get_flashed_messages() %}#}
-{#        {% if messages %}#}
-{#            <div class="notification is-danger">#}
-{#                {{ messages[0] }}#}
-{#            </div>#}
-{#        {% endif %}#}
-{#        {% endwith %}#}
-{#        <form method="POST" action="/login">#}
-{#            <div class="field">#}
-{#                <div class="control">#}
-{#                    <input class="input is-large" type="login" name="login" placeholder="Votre login (login)" autofocus="">#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#            <div class="field">#}
-{#                <div class="control">#}
-{#                    <input class="input is-large" type="password" name="password" placeholder="Votre Password">#}
-{#                </div>#}
-{#            </div>#}
-{#            <button class="button is-block is-info is-large is-fullwidth">Login</button>#}
-{#        </form>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}

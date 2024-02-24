@@ -1,14 +1,14 @@
-<div class="m-2">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">SAE BDD 2024</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark p-4">
+    <div class="container-fluid">
+        <a href="/"><img class="container-fluid__img" src="{{ url_for('static', filename='images/logo/logo_chezxage.png') }}" alt="logo chezxage"></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 {#        <ul class="navbar-nav mr-auto">#}
 {#                    <li class="nav-item dropdown">#}
 {#                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Espace commun</a>#}
 {#                        <div class="dropdown-menu">#}
-{#                             <a class="dropdown-item" href=""  > Articles</a>#}
-{#                            <a class="dropdown-item" href=""  > Types d'articles</a>#}
+{#                             <a class="dropdown-item" href=""  > Meubles</a>#}
+{#                            <a class="dropdown-item" href=""  > Types de meubles</a>#}
 {#                        <div class="dropdown-divider"></div>#}
 {#                        </div>#}
 {#                    </li>#}
@@ -19,23 +19,23 @@
     <div class="d-flex">
             <!-- Authentication Links -->
             {% if session['role']  %}
-                <span class="navbar-text">
+                <span class="navbar-text text-gray">
                     Bonjour {{ session['username'] }}
                     {% if session['role']=='ROLE_admin' %} (role : Admin)
                     {% elif session['role']=='ROLE_client' %} (role : Client) {% endif %}
                     &nbsp
             </span>
-               <a class="btn btn-outline-success" type="button" href="/logout"  >
+               <a class="btn btn-outline-yellow" type="button" href="/logout"  >
                     Se déconnecter (Logout)
                 </a>
             {% else %}
-                <a class="btn btn-outline-success mx-1" type="button" href="/login">
+                <a class="btn btn-outline-yellow mx-2" type="button" href="/login">
                     Se connecter (Login)
                 </a>
-                <a class="btn btn-outline-success  mx-2" type="button" href="/signup">
+                <a class="btn btn-outline-yellow  mx-2" type="button" href="/signup">
                     Inscription  (Sign Up)
                 </a>
-                <a class="btn btn-outline-success" type="button" href="">
+                <a class="btn btn-outline-yellow mx-2" type="button" href="">
                     Mot de passe oublié
                 </a>
             {% endif %}

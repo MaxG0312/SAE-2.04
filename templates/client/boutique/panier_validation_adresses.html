@@ -6,7 +6,7 @@
         </div>
         <div class="row">
              <br>
-            <a href="/client/coordonnee/show" class="btn btn-secondary mt-5 col-2"> ajouter une adresse (livrable 2)</a>
+            <a href="/client/coordonnee/show" class="btn btn-success my-5 col-2"> ajouter une adresse (livrable 2)</a>
             <form action="/client/commande/add"  style="display: inline-block;"  method="post" >
             {% if adresses | length > 0 %}
                 <br>
@@ -48,10 +48,10 @@
                     </select>
                 {%  else %}
                     Il faut une adresse de livraison et de facturation pour valider la commande (livrable 2)
-                    <a href="/client/coordonnee/show"  class="btn btn-primary">Ajouter une adresse (livrable 2)</a>
+                    <a href="/client/coordonnee/show"  class="btn btn-yellow">Ajouter une adresse (livrable 2)</a>
                 {% endif %}
                 <br>
-                <button class="btn btn-primary mt-4" > Passer ma commande </button>
+                <button class="btn btn-success my-5" > Passer ma commande </button>
             </form>
         </div>
     </div>

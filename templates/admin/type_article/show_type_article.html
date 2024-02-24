@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-<h3>Déclinaison et/ou type de meuble (catégorie)</h3>
-<a class="btn btn-outline-success" href="/admin/type-article/add">Ajouter un type de meuble</a>
+<h2 class="fw-bold mb-5">Déclinaison et/ou type de meuble (catégorie)</h2>
+<a class="btn btn-outline-success mt-4" href="/admin/type-article/add">Ajouter un type de meuble</a>
 <br><br>
 
-<table class="table">
+<table class="table table-responsive text-center">
     <thead class="thead-dark">
         <tr>
            <th>designation</th> <th>(id_type_meuble)</th><th>nombre d'articles</th><th>opération</th>
@@ -23,8 +23,8 @@
                   <td>{{ ligne.id_type_meuble }}</td>
                    <td><span style="color: red">{{ ligne.nbre_meubles }}</span></td>
                   <td>
-                      <a class="btn btn-outline-danger" href="/admin/type-article/edit?id_type_article={{ ligne.id_type_meuble }}">editer</a>&nbsp;
-                      <a class="btn btn-outline-warning" href="/admin/type-article/delete?id_type_article={{ ligne.id_type_meuble }}" onclick="return confirm('Are you sure ?')">supprimer</a>
+                      <a class="btn btn-outline-success" href="/admin/type-article/edit?id_type_article={{ ligne.id_type_meuble }}">editer</a>&nbsp;
+                      <a class="btn btn-outline-danger" href="/admin/type-article/delete?id_type_article={{ ligne.id_type_meuble }}" onclick="return confirm('Are you sure ?')">supprimer</a>
                   </td>
            </tr>
         {% endfor %}

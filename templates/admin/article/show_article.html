@@ -14,8 +14,8 @@ articles (tableau de dictionnaires)
 {% endblock %}
 
 {% block body %}
-<h3>Meubles</h3>
-<a  class="btn btn-outline-success" href="/admin/article/add">ajouter un meuble</a>
+<h1>Meubles</h1>
+<a  class="btn btn-outline-success mt-2" href="/admin/article/add">ajouter un meuble</a>
 <br><br>
 {#{{ meubles }}#}
 <table class="table">
@@ -80,7 +80,7 @@ articles (tableau de dictionnaires)
                   </td>
                   <td>
                       <a  class="btn btn-outline-danger" href="/admin/article/delete?id_article={{ ligne.id_article }}" onclick="return confirm('Are you sure?')" >supprimer</a>
-                      <a  class="btn btn-outline-warning" href="/admin/article/edit?id_article={{ ligne.id_article }}">editer</a>
+                      <a  class="btn btn-outline-success" href="/admin/article/edit?id_article={{ ligne.id_article }}">editer</a>
                       <a  class="btn btn-outline-warning" href="/admin/article/commentaires?id_article={{ ligne.id_article }}">commentaires</a>
                   </td>
            </tr>

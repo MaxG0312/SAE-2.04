@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Ajouter un meuble</h2>
+    <h2 class="fw-bold">Ajouter un meuble</h2>
     <div class="row mt-5">
         <img class="card-img-top rounded mx-4 d-block"  style="width:200px; height:200px; border: 1px solid black; padding: 5px;" id="img_output" src="{{ url_for('static', filename = 'images/')}}no_photo.jpeg" alt="">
         <div class="w-25">
@@ -35,10 +35,10 @@
                     <input name="stock" type="number" class="form-control" >
                 </label>
                 <label for="submit">
-                    <input name="submit" type="submit" value="Ajouter" class="btn btn-primary mt-2">
+                    <input name="submit" type="submit" value="Ajouter" class="btn btn-outline-success mt-2">
                 </label>
             </form>
-        <a href="/admin/article/show"><button class="btn btn-secondary mt-2">annuler</button></a>
+        <a href="/admin/article/show"><button class="btn btn-outline-danger mt-2">annuler</button></a>
         </div>
     </div>
 {% endblock %}

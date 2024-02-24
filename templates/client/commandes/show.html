@@ -1,9 +1,12 @@
 {% extends "client/layout_client.html" %}
+{% block title %}
+    <title>Mes commandes</title>
+{% endblock %}
 {% block body %}
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
             {% if articles_commande %}
-            <h3>Recapitulatifs de la commande selectionnée</h3>
-            <table class="table">
+            <h2 class="text-md-center text-dark mb-5 fw-bold">Recapitulatifs de la commande selectionnée</h2>
+            <table class="table table-responsive text-center">
                 <thead class="thead-dark">
                     <tr><th>Nom</th><th>Quantite</th><th>Prix</th><th>Prix total</th></tr>
                 </thead>
@@ -27,10 +30,9 @@
                                 </td>
                                 <td>{{ ligne.quantite }}</td>
                                 <td>{{ ligne.prix }} €</td>
-                                <td>{{ ligne.prix_ligne }} €  </td>
+                                <td class="fw-bold">{{ ligne.prix_ligne }} €  </td>
                             </tr>
                         {% endfor %}
-
                 </tbody>
             </table>
                 <br>
@@ -46,9 +48,9 @@
                 </div>
             <hr>
         {% endif %}
-        <div class="card shadow">
+        <div class="card shadow my-5">
             <div class="card-header py-3">
-                <p class="text-primary m-0 font-weight-bold">Toutes mes commandes</p>
+                <h4 class="text-center m-0 fw-bold">Toutes mes commandes</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -56,21 +58,21 @@
                         <thead>
                         <tr>
                             <th>Date de commande</th>
-                            <th>Nombre d'articles</th>
-                            <th>Coût total</th>
-                            <th>Etat de la commande</th>
-                            <th style="text-align: center;">Options</th>
+                            <th class="text-center">Nombre d'articles</th>
+                            <th class="text-center">Coût total</th>
+                            <th class="text-center">Etat de la commande</th>
+                            <th class="text-center">Options</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for commande in commandes %}
                             <tr id="" {% if commande.etat_id == 1 %} style="background: #FFD600; font-weight: bold;" {% endif %}>
                                 <td>{{ commande.date_achat.strftime('%d-%m-%Y') }}</td>
-                                <td> {{ commande.nbr_articles }} </td>
-                                <td>
+                                <td class="text-center"> {{ commande.nbr_articles }} </td>
+                                <td class="text-center">
                                     {{ "{:,.2f} €".format(commande.prix_total) }}
                                 </td>
-                                <td style="text-align: center;">
+                                <td class="text-center">
                                     {% if commande.etat_id == 1 %} <div style="background-color: #ba8b00; padding: 5px;">
                                      {{ commande.libelle }}
                                     </div>
@@ -78,9 +80,9 @@
                                         {{ commande.libelle }} </div>
                                     {% endif %}
                                 </td>
-                                <td style="text-align: center;">
+                                <td class="text-center">
                                     <a href="/client/commande/show?id_commande={{ commande.id_commande }}">
-                                        <button class="btn btn-primary" > Details </button>
+                                        <button class="btn btn-yellow" > Details </button>
                                     </a>
                                 </td>
                             </tr>

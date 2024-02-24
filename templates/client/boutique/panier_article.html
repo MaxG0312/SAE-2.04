@@ -2,36 +2,38 @@
         * dictionnaire : nom quantite prix article_id [stock]
         *
 #}
+{% block title %}
+    <title>Accueil</title>
+{% endblock %}
 
 {% extends "client/layout_client.html" %}
 {% block body %}
     <div class="container">
         <div class="row align-self-right">
         {% include('client/boutique/_panier.html') %}
-            <div class="col">
-              <h3>Les filtres</h3>
+            <div class="col mt-5">
+              <h2 class="text-dark">Les filtres</h2>
               Articles dont le nom est composé par :<br>
                  {% include('client/boutique/_filtre.html') %}
             </div>
         </div>
 
-        <div class="bg-light p-3">
+        <div class="pt-5">
             <h1>Les meubles</h1>
         </div>
 
-        <div class="row">
+        <div class="row gap-3">
                 {% for meuble in meubles  %}
-                        <div class="card col-4 mt-4 p-1">
-                            <div class="card-body border-dark rounded p-1">
+                        <div class="card col-12 col-md-3 mt-2 shadow">
+                            <div class="card-body border-dark rounded p-2">
                                 <a href="/client/article/details?id_article={{ meuble.id_meuble }}" >
                                 <h3 class="card-title">
-                                    <span style="color: #0b2e13">{{ meuble.nom }}</span><br>
-                                    {{ meuble.prix }}
-                                    €
+                                    <span class="text-dark">{{ meuble.nom }}</span><br>
                                 </h3>
+                                <h4>{{ meuble.prix }} €</h4>
                                      {%  if meuble.image is not none %}
-                                        <img class="card-img-top rounded mx-auto d-block"  style="width:100px;height:100px"  src="{{ url_for('static', filename = 'images/')}}{{ meuble.image }}"  alt="image  de {{ meuble.nom }}" >
-                                    {% else %} <img class="card-img-top rounded mx-auto d-block"   style="width:100px;height:100px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="image  de {{ meuble.nom }}" >
+                                        <img class="card-img-top rounded mx-auto d-block"  style="width:150px;height:100px"  src="{{ url_for('static', filename = 'images/')}}{{ meuble.image }}"  alt="image  de {{ meuble.nom }}" >
+                                    {% else %} <img class="card-img-top rounded mx-auto d-block w-100"   style="width:150px;height:100px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="image  de {{ meuble.nom }}" >
                                     {% endif %}
                                     <hr>
                                 </a>
@@ -42,7 +44,7 @@
                                             <input type="hidden" name="id_article" value="{{ meuble.id_meuble }}">
                                             <div class="input-group">
                                             <button class="btn  btn-success"  id="button-addon1">
-                                                <i class="fas fa-shopping-cart">Ajouter</i>
+                                                Ajouter
                                             </button>
                                             <input type="number" id="input-{{ meuble.id_meuble }}" step="1" min="0" max="{{ meuble.stock }}" class="form-control" value="1" name="quantite"  aria-describedby="button-addon1">
                                             </div>
@@ -60,7 +62,7 @@
                                      </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer py-2">
                             {% if meuble.stock is defined and meuble.stock != None %}
                                  {% if meuble.stock > 0 %}
                                     <small class="text-muted">Stock restant : {{ meuble.stock }}</small>
