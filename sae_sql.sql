@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS ligne_panier;
 DROP TABLE IF EXISTS ligne_commande;
+DROP TABLE IF EXISTS note;
+DROP TABLE IF EXISTS commentaire;
 DROP TABLE IF EXISTS meuble;
 DROP TABLE IF EXISTS commande;
 DROP TABLE IF EXISTS type_meuble;
@@ -69,6 +71,29 @@ CREATE TABLE meuble(
    FOREIGN KEY(type_meuble_id) REFERENCES type_meuble(id_type),
    FOREIGN KEY(materiau_id) REFERENCES materiau(id_materiau)
 )CHARACTER SET 'utf8';
+
+
+CREATE TABLE note(
+    note INT,
+    id_meuble INT NOT NULL,
+    id_utilisateur INT NOT NULL,
+    PRIMARY KEY (id_meuble,id_utilisateur),
+    FOREIGN KEY (id_meuble) REFERENCES meuble(id_meuble),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
+)CHARACTER SET 'utf8';
+
+
+CREATE TABLE commentaire(
+    id_utilisateur INT NOT NULL ,
+    id_meuble INT NOT NULL ,
+    date_publication DATETIME,
+    commentaire VARCHAR(256),
+    valider INT NOT NULL ,
+    PRIMARY KEY(id_utilisateur, id_meuble, date_publication),
+    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    FOREIGN KEY(id_meuble) REFERENCES meuble(id_meuble)
+)CHARACTER SET 'utf8';
+
 
 CREATE TABLE ligne_panier(
    utilisateur_id INT,
@@ -140,5 +165,17 @@ VALUES
 
 
 
+<<<<<<< Updated upstream
 
+=======
+SELECT
+   id_type AS id_type_meuble, libelle_type as libelle,
+   COUNT(meuble.id_meuble) AS nbre_meubles
+FROM type_meuble
+LEFT JOIN meuble ON meuble.type_meuble_id = type_meuble.id_type
+WHERE id_type = 3
+GROUP BY id_type_meuble, libelle;
+>>>>>>> Stashed changes
 
+INSERT INTO commentaire
+VALUES (2,1,'2024-03-23','Ceci est un test',1);

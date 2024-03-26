@@ -29,17 +29,20 @@ def client_article_details():
     nb_commentaires=[]
     if article is None:
         abort(404, "pb id article")
-    # sql = '''
-    #
-    # '''
-    # mycursor.execute(sql, ( id_article))
-    # commentaires = mycursor.fetchall()
-    # sql = '''
-    # '''
-    # mycursor.execute(sql, (id_client, id_article))
+
+    sql = '''SELECT commentaire,commentaire.id_utilisateur, u.nom
+             FROM commentaire
+             JOIN utilisateur u ON commentaire.id_utilisateur = u.id_utilisateur
+             WHERE id_meuble=%s
+    '''
+    mycursor.execute(sql, ( id_article))
+    commentaires = mycursor.fetchall()
+    #sql = ''''''
+    #mycursor.execute(sql, (id_client, id_article))
     # commandes_articles = mycursor.fetchone()
-    # sql = '''
-    # '''
+    sql = '''
+        
+    '''
     # mycursor.execute(sql, (id_client, id_article))
     # note = mycursor.fetchone()
     # print('note',note)
@@ -51,7 +54,7 @@ def client_article_details():
     # nb_commentaires = mycursor.fetchone()
     return render_template('client/article_info/article_details.html'
                            , article=article
-                           # , commentaires=commentaires
+                           , commentaires=commentaires
                            , commandes_articles=commandes_articles
                            # , note=note
                             , nb_commentaires=nb_commentaires
