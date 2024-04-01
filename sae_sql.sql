@@ -163,6 +163,9 @@ VALUES
 
 ("client2", "client2@client.fr", "client2", "pbkdf2:sha512:600000$AzVEd5kVoRwR6SPF$65db3d109a2f08d53c3fbdc72218cbdb34dce9a302badc04f491b1292c4a0725985ea085d3e360c101579898688a098e2a74076c2015ff38dab3bd8c57e68c01", "ROLE_client", 1);
 
+("client3", "client3@client.fr", "client3", "pbkdf2:sha512:600000$AzVEd5kVoRwR6SPF$65db3d109a2f08d53c3fbdc72218cbdb34dce9a302badc04f491b1292c4a0725985ea085d3e360c101579898688a098e2a74076c2015ff38dab3bd8c57e68c01", "ROLE_client", 1);
+
+
 INSERT INTO etat (libelle)
 VALUES ('validé'),('pas validé');
 
@@ -178,3 +181,7 @@ GROUP BY id_type_meuble, libelle;
 
 INSERT INTO commentaire
 VALUES (2,1,'2024-03-23','Ceci est un test',1);
+INSERT INTO note
+VALUES (4.5,2,1);
+INSERT INTO note
+VALUES (3,3,1);
