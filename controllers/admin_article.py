@@ -17,17 +17,17 @@ admin_article = Blueprint('admin_article', __name__,
 @admin_article.route('/admin/article/show')
 def show_article():
     mycursor = get_db().cursor()
+
     sql = '''
-        SELECT id_stylo AS id_article
-               , nom_stylo AS nom
-               , prix_stylo AS prix
-               , stock AS stock
-        FROM stylo
-        ORDER BY nom_stylo;
-        '''
+    SELECT id_meuble AS id_article, nom_meuble AS nom, prix_meuble AS prix, stock
+    FROM meuble
+    ORDER BY nom_meuble;
+    '''
     mycursor.execute(sql)
     articles = mycursor.fetchall()
-    print(articles)
+
+    print(articles)  # Juste pour le débogage, à retirer si non nécessaire
+
     return render_template('admin/article/show_article.html', articles=articles)
 
 
@@ -82,7 +82,7 @@ def delete_article():
     mycursor.execute(sql, id_article)
     nb_declinaison = mycursor.fetchone()
     if nb_declinaison['nb_declinaison'] > 0:
-        message= u'il y a des declinaisons dans cet article : vous ne pouvez pas le supprimer'
+        message= u'il y a des déclinaisons dans cet article : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
         sql = ''' requête admin_article_4 '''
@@ -167,28 +167,3 @@ def valid_edit_article():
     message = u'article modifié , nom:' + nom + '- type_article :' + type_article_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description
     flash(message, 'alert-success')
     return redirect('/admin/article/show')
-
-
-
-
-
-
-
-@admin_article.route('/admin/article/avis/<int:id>', methods=['GET'])
-def admin_avis(id):
-    mycursor = get_db().cursor()
-    article=[]
-    commentaires = {}
-    return render_template('admin/article/show_avis.html'
-                           , article=article
-                           , commentaires=commentaires
-                           )
-
-
-@admin_article.route('/admin/comment/delete', methods=['POST'])
-def admin_avis_delete():
-    mycursor = get_db().cursor()
-    article_id = request.form.get('idArticle', None)
-    userId = request.form.get('idUser', None)
-
-    return admin_avis(article_id)

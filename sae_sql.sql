@@ -74,9 +74,9 @@ CREATE TABLE meuble(
 
 
 CREATE TABLE note(
-    note INT,
-    id_meuble INT NOT NULL,
+    note DECIMAL(2,1),
     id_utilisateur INT NOT NULL,
+    id_meuble INT NOT NULL,
     PRIMARY KEY (id_meuble,id_utilisateur),
     FOREIGN KEY (id_meuble) REFERENCES meuble(id_meuble),
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
@@ -163,11 +163,10 @@ VALUES
 
 ("client2", "client2@client.fr", "client2", "pbkdf2:sha512:600000$AzVEd5kVoRwR6SPF$65db3d109a2f08d53c3fbdc72218cbdb34dce9a302badc04f491b1292c4a0725985ea085d3e360c101579898688a098e2a74076c2015ff38dab3bd8c57e68c01", "ROLE_client", 1);
 
+INSERT INTO etat (libelle)
+VALUES ('validé'),('pas validé');
 
 
-<<<<<<< Updated upstream
-
-=======
 SELECT
    id_type AS id_type_meuble, libelle_type as libelle,
    COUNT(meuble.id_meuble) AS nbre_meubles
